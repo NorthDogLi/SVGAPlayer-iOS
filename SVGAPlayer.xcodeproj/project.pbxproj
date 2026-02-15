@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		025967972F4167EC00EC5A0E /* resource-1771083597996842.svga in Resources */ = {isa = PBXBuildFile; fileRef = 025967962F4167EC00EC5A0E /* resource-1771083597996842.svga */; };
+		025967982F4167EC00EC5A0E /* hello.svga in Resources */ = {isa = PBXBuildFile; fileRef = 025967952F4167EC00EC5A0E /* hello.svga */; };
+		0259679B2F416A7700EC5A0E /* TestVC1.m in Sources */ = {isa = PBXBuildFile; fileRef = 0259679A2F416A7700EC5A0E /* TestVC1.m */; };
+		0259679E2F416A8B00EC5A0E /* TestVC2.m in Sources */ = {isa = PBXBuildFile; fileRef = 0259679D2F416A8B00EC5A0E /* TestVC2.m */; };
 		63712E6521787950001AE014 /* heartbeat.svga in Resources */ = {isa = PBXBuildFile; fileRef = 63712E6421787950001AE014 /* heartbeat.svga */; };
 		63712E6821787A45001AE014 /* SVGAAudioEntity.m in Sources */ = {isa = PBXBuildFile; fileRef = 63712E6721787A45001AE014 /* SVGAAudioEntity.m */; };
 		63E817012178809D001D2D62 /* SVGAAudioLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E817002178809D001D2D62 /* SVGAAudioLayer.m */; };
@@ -43,6 +47,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		025967952F4167EC00EC5A0E /* hello.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = hello.svga; sourceTree = "<group>"; };
+		025967962F4167EC00EC5A0E /* resource-1771083597996842.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = "resource-1771083597996842.svga"; sourceTree = "<group>"; };
+		025967992F416A7700EC5A0E /* TestVC1.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestVC1.h; sourceTree = "<group>"; };
+		0259679A2F416A7700EC5A0E /* TestVC1.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestVC1.m; sourceTree = "<group>"; };
+		0259679C2F416A8B00EC5A0E /* TestVC2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestVC2.h; sourceTree = "<group>"; };
+		0259679D2F416A8B00EC5A0E /* TestVC2.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestVC2.m; sourceTree = "<group>"; };
 		1DDA5FF396660C7C932DF9B8 /* libPods-SVGAPlayer.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SVGAPlayer.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63712E6421787950001AE014 /* heartbeat.svga */ = {isa = PBXFileReference; lastKnownFileType = file; path = heartbeat.svga; sourceTree = "<group>"; };
 		63712E6621787A45001AE014 /* SVGAAudioEntity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SVGAAudioEntity.h; sourceTree = "<group>"; };
@@ -112,6 +122,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		025967942F4167CB00EC5A0E /* TestResoule */ = {
+			isa = PBXGroup;
+			children = (
+				025967952F4167EC00EC5A0E /* hello.svga */,
+				025967962F4167EC00EC5A0E /* resource-1771083597996842.svga */,
+			);
+			path = TestResoule;
+			sourceTree = "<group>";
+		};
 		431B19F0F45A7844195F461A /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -143,11 +162,16 @@
 		90A676DF1D13A6DF008A69F3 /* SVGAPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				025967942F4167CB00EC5A0E /* TestResoule */,
 				90D7C9FA1F7E2AA3006E74F0 /* Samples */,
 				90A676E31D13A6DF008A69F3 /* AppDelegate.h */,
 				90A676E41D13A6DF008A69F3 /* AppDelegate.m */,
 				90A676E61D13A6DF008A69F3 /* ViewController.h */,
 				90A676E71D13A6DF008A69F3 /* ViewController.m */,
+				025967992F416A7700EC5A0E /* TestVC1.h */,
+				0259679A2F416A7700EC5A0E /* TestVC1.m */,
+				0259679C2F416A8B00EC5A0E /* TestVC2.h */,
+				0259679D2F416A8B00EC5A0E /* TestVC2.m */,
 				90A676E91D13A6DF008A69F3 /* Main.storyboard */,
 				90A676EC1D13A6DF008A69F3 /* Assets.xcassets */,
 				90A676EE1D13A6DF008A69F3 /* LaunchScreen.storyboard */,
@@ -297,6 +321,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				71418C93225E6F710029C69E /* mutiMatte.svga in Resources */,
+				025967972F4167EC00EC5A0E /* resource-1771083597996842.svga in Resources */,
+				025967982F4167EC00EC5A0E /* hello.svga in Resources */,
 				90A676F01D13A6DF008A69F3 /* LaunchScreen.storyboard in Resources */,
 				718A146D235718E000FED5D3 /* Rocket.svga in Resources */,
 				90A676ED1D13A6DF008A69F3 /* Assets.xcassets in Resources */,
@@ -351,9 +377,11 @@
 				90A364D71E5AECBD009347F1 /* SVGAVideoSpriteEntity.m in Sources */,
 				90A676E51D13A6DF008A69F3 /* AppDelegate.m in Sources */,
 				90A364DD1E5D33F8009347F1 /* SVGAContentLayer.m in Sources */,
+				0259679B2F416A7700EC5A0E /* TestVC1.m in Sources */,
 				90DB59B51F96026E00894727 /* SVGAImageView.m in Sources */,
 				90A676FA1D13A81F008A69F3 /* SVGA.m in Sources */,
 				90A677061D13BF77008A69F3 /* SVGAPlayer.m in Sources */,
+				0259679E2F416A8B00EC5A0E /* TestVC2.m in Sources */,
 				90A364D41E5AEC1C009347F1 /* SVGAVectorLayer.m in Sources */,
 				90D7CA161F7FA07A006E74F0 /* Svga.pbobjc.m in Sources */,
 				90A676E21D13A6DF008A69F3 /* main.m in Sources */,

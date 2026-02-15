@@ -10,8 +10,8 @@
 #import "SVGA.h"
 
 @interface ViewController ()<SVGAPlayerDelegate>
-
-@property (weak, nonatomic) IBOutlet SVGAPlayer *aPlayer;
+@property (nonatomic, strong) SVGAParser *parser;
+@property (nonatomic, strong) SVGAPlayer *svgaPlayer;
 @property (weak, nonatomic) IBOutlet UISlider *aSlider;
 @property (weak, nonatomic) IBOutlet UIButton *onBeginButton;
 
@@ -19,20 +19,52 @@
 
 @implementation ViewController
 
-static SVGAParser *parser;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.aPlayer.delegate = self;
-    self.aPlayer.loops = 1;
-    self.aPlayer.clearsAfterStop = YES;
-    parser = [[SVGAParser alloc] init];
+    _svgaPlayer = [[SVGAPlayer alloc] init];
+    _svgaPlayer.delegate = self;
+    _svgaPlayer.loops = 1; // 只执行一次
+    // @"Forward" 或者 @"Backward"
+    //_svgaPlayer.fillMode = @"Forward";
+    _svgaPlayer.clearsAfterStop = NO; //执行完毕是否删除清空，内部默认YES
+    //_svgaPlayer.contentMode = UIViewContentModeScaleAspectFill;
+    _svgaPlayer.contentMode = UIViewContentModeScaleAspectFit;
+    
+    _parser = [[SVGAParser alloc] init];
+    
     [self onChange:nil];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     [super touchesBegan:touches withEvent:event];
     [self onBeginButton:self.onBeginButton];
+}
+
+- (void)startSvgaWithData:(NSData *)data cacheKey:(NSString *)cacheKey {
+    CGFloat sizeInMB = data.length / (1024.0f * 1024.0f);
+    
+    NSLog(@"svga - 下载后的大小是：%zd 字节，约为:%0.2fM", data.length, sizeInMB);
+    [self.parser parseWithData:data cacheKey:cacheKey completionBlock:^(SVGAVideoEntity *videoItem) {
+        if (videoItem) {
+            NSLog(@"svga - fps=%d, frame=%d，图片数量：%zd", videoItem.FPS, videoItem.frames, videoItem.images.count);
+            self.svgaPlayer.videoItem = videoItem;
+            [self startAninmation];
+        } else {
+            
+            
+        }
+    } failureBlock:^(NSError *error) {
+        
+    }];
+}
+- (void)startAninmation {
+    
+    [self.svgaPlayer startAnimation];
+}
+
+- (void)stopAnimation {
+    [self.svgaPlayer stopAnimation];
 }
 
 - (IBAction)onChange:(id)sender {
@@ -51,11 +83,11 @@ static SVGAParser *parser;
                        ];
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
 //    parser.enabledMemoryCache = YES;
-    [parser parseWithURL:[NSURL URLWithString:items[arc4random() % items.count]]
+    [self.parser parseWithURL:[NSURL URLWithString:items[arc4random() % items.count]]
          completionBlock:^(SVGAVideoEntity * _Nullable videoItem) {
              [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
              if (videoItem != nil) {
-                 self.aPlayer.videoItem = videoItem;
+                 self.svgaPlayer.videoItem = videoItem;
                  NSMutableParagraphStyle *para = [[NSMutableParagraphStyle alloc] init];
                  [para setLineBreakMode:NSLineBreakByTruncatingTail];
                  [para setAlignment:NSTextAlignmentCenter];
@@ -66,9 +98,8 @@ static SVGAParser *parser;
                                                 NSForegroundColorAttributeName: [UIColor whiteColor],
                                                 NSParagraphStyleAttributeName: para,
                                             }];
-                 [self.aPlayer setAttributedText:str forKey:@"banner"];
-
-                 [self.aPlayer startAnimation];
+                 [self.svgaPlayer setAttributedText:str forKey:@"banner"];
+                 [self.svgaPlayer startAnimation];
                  
 //                 [self.aPlayer startAnimationWithRange:NSMakeRange(10, 25) reverse:YES];
              }
@@ -89,11 +120,11 @@ static SVGAParser *parser;
 }
 
 - (IBAction)onSliderClick:(UISlider *)sender {
-    [self.aPlayer stepToPercentage:sender.value andPlay:NO];
+    [self.svgaPlayer stepToPercentage:sender.value andPlay:NO];
 }
 
 - (IBAction)onSlide:(UISlider *)sender {
-    [self.aPlayer stepToPercentage:sender.value andPlay:NO];
+    [self.svgaPlayer stepToPercentage:sender.value andPlay:NO];
 }
 
 - (IBAction)onChangeColor:(UIButton *)sender {
@@ -103,9 +134,9 @@ static SVGAParser *parser;
 - (IBAction)onBeginButton:(UIButton *)sender {
     sender.selected = !sender.isSelected;
     if (sender.selected) {
-        [self.aPlayer pauseAnimation];
+        [self.svgaPlayer pauseAnimation];
     } else {
-        [self.aPlayer stepToPercentage:(self.aSlider.value == 1 ? 0 : self.aSlider.value) andPlay:YES];
+        [self.svgaPlayer stepToPercentage:(self.aSlider.value == 1 ? 0 : self.aSlider.value) andPlay:YES];
     }
 }
 
@@ -126,4 +157,5 @@ static SVGAParser *parser;
 - (void)svgaPlayerDidFinishedAnimation:(SVGAPlayer *)player {
     self.onBeginButton.selected = YES;
 }
+
 @end
